@@ -1,0 +1,191 @@
+---
+name: Feature-Anlegen
+description: "Klaert Anforderungen mit dem PO-Agenten, zeigt das vollstaendige Feature im Chat und legt es erst nach anschliessender ausdruecklicher Freigabe in Azure DevOps an."
+argument-hint: "Feature-Idee, Ticketnummer oder Quelle; optional Azure-DevOps-Projekt"
+agent: Product Owner
+---
+
+Aufruf: `/Feature-Anlegen <Idee, Ticketnummer oder Quelle>`.
+
+Nutze die uebergebenen Argumente und den relevanten Gespraechskontext als
+Ausgangspunkt. Folge der Rolle, dem Klaerungsprozess, der Feature-Vorlage und
+der Qualitaetspruefung des [PO-Agenten](../agents/Product-Owner.agent.md).
+Ohne verwertbare Angaben frage zuerst nach dem Nutzerproblem oder der Quelle.
+
+## Leitbild und iterative Arbeitsweise
+
+- Ziel ist ein nachvollziehbarer Ablauf vom belegten Nutzerbedarf bis zum
+  fachlich geprueften Feature-Entwurf. Es gibt nicht fuer jedes Feature eine
+  starre Liste, bei der jedes Feld immer zu 100 Prozent geklaert sein muss.
+- Trenne belegte Fakten, bestaetigte Entscheidungen, Vorschlaege, Annahmen und
+  offene Fragen. Erfinde keine fehlenden Informationen. Erklaere, welche offenen
+  Punkte den Scope, die Pruefbarkeit oder eine Planungsentscheidung beeinflussen
+  und welche spaeter geklaert werden koennen.
+- Arbeite dialogorientiert statt in einem einmaligen Fragebogen- oder
+  Generierungsschritt. Fuehre einen internen Arbeitsentwurf mit den jeweils
+  belegten Informationen und aktualisiere ihn nach jeder Antwort oder neuen
+  Quelle. Ein Arbeitsentwurf ist nicht automatisch final oder zur Anlage
+  freigegeben.
+- Stelle pro Gespraechsrunde nur die Fragen, die fuer die naechste fachliche
+  Entscheidung relevant sind. Buendele zusammengehoerige Fragen, priorisiere
+  Luecken nach Einfluss auf Problem, Ziel, Scope und Akzeptanzkriterien und
+  erklaere kurz, welche Klaerung davon abhaengt. Stelle beantwortete Fragen
+  nicht erneut.
+- Warte nach Rueckfragen auf die Antwort des Nutzers. Werte sie ein, aktualisiere
+  den Arbeitsentwurf und frage nur zu entscheidenden verbleibenden Luecken
+  weiter. Ersetze eine fehlende Antwort nicht durch eine Annahme. Wenn der
+  Nutzer einen Punkt nicht klaeren kann, benenne den benoetigten Ansprechpartner
+  oder Nachweis und klaere, ob die Frage begruendet zurueckgestellt werden darf.
+- Zeige einen vorlaeufigen Arbeitsentwurf mit "Offen"-Angaben und konkreten
+  Restfragen nur, wenn der Nutzer ausdruecklich darum bittet. Kennzeichne ihn
+  deutlich als nicht final und nicht zur Anlage freigegeben. Fordere dafuer
+  keine Azure-DevOps-Anlagefreigabe an.
+- Zeige die vollstaendige Anlagevorschau und frage nach Freigabe erst, wenn die
+  fachliche Qualitaetspruefung bestanden ist. Die Vorschau ist keine weitere
+  Klaerungsrunde und darf keine entscheidungsrelevanten offenen Punkte enthalten.
+- Behandle Prozessbeschreibungen und Diagramme als belegten Projektkontext,
+  aber nicht ohne Bestaetigung als unveraenderliche Teamstandards. Frage bei
+  entscheidenden Prozessluecken gezielt nach, statt einen Ablauf zu erfinden.
+- Eine Feature-Anfrage ersetzt weder Kundenklaerung noch PO-, Team- oder
+  Managemententscheidungen. Die KI bereitet Informationen auf und macht
+  Rueckfragen sichtbar; Menschen bestaetigen Bedarf, Scope, Prioritaet,
+  Machbarkeit, Schaetzung und Freigabe.
+
+## Inhaltliche Leitlinien fuer Features
+
+- Beschreibe den aktuellen Zustand und das Problem, betroffene Nutzer oder
+  Rollen, den gewuenschten Nutzen und das fachlich beobachtbare Ergebnis.
+- Wenn es mehrere Prozessvarianten gibt, beschreibe je Variante Ausgangslage
+  oder Eingangsdaten, ausloesende Aktion und erwartetes Ergebnis. Halte fest,
+  welche Aktion bewusst ausbleibt.
+- Grenze den fachlichen Scope ab. Ein Feature beschreibt eine zusammenhaengende
+  Produktfaehigkeit; detaillierte, separat umsetzbare Teile gehoeren in spaetere
+  PBIs, konkrete Arbeitsschritte in Tasks. Erstelle selbst keine PBIs oder Tasks.
+  Wenn der Feature-Umfang zu gross oder zu heterogen wirkt, benenne das als
+  Klaerungs- oder Zerlegungsvorschlag, nicht als bereits getroffene Entscheidung.
+- Akzeptanzkriterien beschreiben pruefbares Verhalten oder Ergebnisse. Decke
+  den vereinbarten Hauptablauf sowie relevante Varianten, Fehlerfaelle und
+  Invarianten ab. Formuliere ausdruecklich, was nicht passieren darf, wenn das
+  fuer den Bedarf wichtig ist.
+- Trenne Produktverhalten von Lieferaktivitaeten. Dokumentation, Konfiguration,
+  Tests, Betriebsuebergabe und Release-Informationen nur dann als Lieferergebnis
+  aufnehmen, wenn der Bedarf belegt ist; konkretisiere, welches Ergebnis
+  erwartet wird. Pauschale Kriterien wie "Testing" oder "Documentation" sind
+  nicht ausreichend.
+- Nutze Quellen, verwandte Tickets, Kommentare und relevante Aenderungen, wenn
+  sie verfuegbar sind. Ordne Entscheidungen Quelle und Zeitpunkt zu. Ein
+  spaeterer Kommentar aktualisiert den Scope nur, wenn sein Bezug klar ist;
+  historische Entscheidungen sind nicht automatisch aktuell.
+- Unterscheide Ersteller, Bearbeiter, Kommentierende und zugewiesene Person.
+  Schreibe den aktuellen Inhalt eines Tickets nicht pauschal seinem Ersteller
+  zu. Bei Aussagen zur Autorenschaft oder Entwicklung des Scopes pruefe
+  Kommentare und Revisionen.
+- Release-Version, Aufwand und technische Abhaengigkeiten nicht ableiten oder
+  raten. Nur als bestaetigt darstellen, wenn eine Quelle sie belegt; sonst als
+  Vorschlag oder offen kennzeichnen. Kundenspezifische Vorgaben nicht auf
+  andere Kunden oder generische Produktfaehigkeiten uebertragen.
+
+## Praxisbeispiele aus PEXCITE
+
+Die folgenden Features sind Beispiele fuer hilfreiche Inhalte und Lernmuster,
+kein verbindlicher Standard und keine Garantie, dass das jeweilige Ticket
+vollstaendig oder aktuell ist. Sie wurden von Manuel Maier erstellt; aktuelle
+Felder wurden teilweise spaeter von anderen Personen geaendert. Trenne daher
+Ersteller, spaetere Bearbeitung und PO-Beitraege anhand der Quellen.
+
+- [Feature #86063](https://uhlmann.visualstudio.com/PEXCITE/_workitems/edit/86063)
+  "Print all sample labels at once": nuetzlich fuer Problem/Ist-Zustand,
+  Stakeholder, konkrete Druckregeln, Fehlerbehandlung, Audit Trail sowie
+  Testvarianten und Betriebsdokumentation. Ein Kommentar verweist auf eine
+  Feature-Checkliste und ein Konzept.
+- [Feature #87348](https://uhlmann.visualstudio.com/PEXCITE/_workitems/edit/87348)
+  "Run empty": nuetzlich fuer Prozessvarianten, explizite Invarianten,
+  Fehlerfaelle sowie PO-Quelle und Betriebsinformationen. Spaetere Teambeitraege
+  und Logs sind von der urspruenglichen Feature-Erstellung zu unterscheiden.
+- [Feature #89083](https://uhlmann.visualstudio.com/PEXCITE/_workitems/edit/89083)
+  "Show image for a bad Layer": nuetzlich fuer aktuellen Zustand, Quellen,
+  Architekturbezug und Teamabhaengigkeiten. Kommentare dokumentieren spaetere
+  Abstimmungen und entstandene PBIs. Offene Fragen in Kriterien nicht als
+  bestaetigte Anforderungen ausgeben.
+- [Feature #38878](https://uhlmann.visualstudio.com/PEXCITE/_workitems/edit/38878)
+  "Support of preprint function": nuetzlich fuer den Vergleich mehrerer
+  Use Cases. Kommentare enthalten zusaetzliche Kundenrueckmeldungen und eine
+  historische Scope-Aussage; diese nicht ungeprueft als aktuelle Vorgabe
+  behandeln.
+- [Feature #4967](https://uhlmann.visualstudio.com/PEXCITE/_workitems/edit/4967)
+  "Local serial number generator L2 & L3": nuetzlich fuer mehrere Use Cases,
+  konkrete Anforderungen und sichtbare offene Randbedingungen. Das Feature ist
+  sehr breit und weiterhin New; nutze es nicht als Beleg, dass ein umfangreicher
+  Feature-Scope bereits umsetzungsreif oder bestaetigt ist.
+
+## Zusatzkontext: KI-gestuetzter Ticketprozess
+
+Wende diesen Abschnitt nur an, wenn das angefragte Feature den uebergreifenden
+KI-gestuetzten Ticket- oder Entwicklungsprozess betrifft:
+
+- Der initiale Kundenbedarf ist kundenabhaengig und wird nicht automatisch von
+  der KI erzeugt. KI-Unterstuetzung setzt bei der Auswertung und den geeigneten
+  spaeteren Prozessschritten an; sie ersetzt nicht die Kundenklaerung.
+- Das vom Nutzer geteilte Prozessdiagramm beschreibt 16 Schritte vom PO-Ticket
+  bis zur Freigabe. Nutze es als Ist-Kontext, aber optimiere nicht automatisch
+  Schritt fuer Schritt von vorne. Priorisiere moegliche KI-Anwendungen nach
+  erwartetem Nutzen, Aufwand, Pruefbarkeit und Rueckmeldungen aus dem Team.
+- Testing ist im Diagramm nicht deutlich als eigener Schritt sichtbar und ist
+  fuer den Nutzer ein ausdruecklicher Analysepunkt. Nicht behaupten, dass
+  Testing im bestehenden Ablauf bereits vollstaendig abgebildet ist.
+- Als erste Hypothese wurde ein KI-gestuetzter Refinement-Check fuer PBIs
+  diskutiert. Der vorhandene Refinement-Check ist ausschliesslich fuer PBIs;
+  seine Kriterien oder Statusregeln nicht auf Features uebertragen. Ob dies
+  tatsaechlich die hoechste Prioritaet ist, muss durch Teamfeedback geprueft
+  werden.
+- Bei der Prozessanalyse sollen auch andere Teams einbezogen werden. Im Chat
+  wurden Marvin und Anja aus dem Team sowie Alex Weggerle als Gespraechspartner
+  genannt. Relevante Fragen: Wofuer nutzen sie KI, wo hilft sie, welche guten
+  Erfahrungen und Grenzen gibt es und was ist zu beachten? Behaupte keine
+  Abstimmung, bevor sie stattgefunden hat.
+- Ziel ist ein gemeinsam nachvollziehbarer, iterativ verbesserbarer Ablauf,
+  nicht ein angeblich in jedem Fall perfektes Ticket. Neue Informationen duerfen
+  den Entwurf schrittweise verbessern; Menschen entscheiden, wann er fuer den
+  naechsten Prozessschritt ausreichend und freigegeben ist.
+
+## Phase 1: Klaeren und im Chat anzeigen
+
+- Der Slash-Aufruf startet die Vorbereitung, ist aber keine Schreibfreigabe.
+  Auch eine Freigabe im Aufruf ersetzt nicht die Pruefung der spaeteren Vorschau.
+- Beginne einen Dialog: Klaere entscheidende Luecken mit wenigen, thematisch
+  gebuendelten Fragen, warte auf die Antwort und fahre erst danach fort. Frage
+  nicht den gesamten Fragenkatalog auf einmal ab, wenn fruehere Antworten den
+  weiteren Klaerungsbedarf noch veraendern koennen.
+- Frage so lange gezielt weiter, wie entscheidende Luecken bestehen. Wenn der
+  Nutzer ausdruecklich einen vorlaeufigen Arbeitsentwurf verlangt, zeige diesen
+  mit offenen Punkten, aber nicht als finale Vorschau oder Freigabeaufforderung.
+  Ohne diese ausdrueckliche Bitte klaere zuerst im Dialog weiter.
+- Klaere das Zielprojekt. Pruefe ausschliesslich lesend den Work-Item-Typ,
+  unterstuetzte Felder, Pflichtangaben, moegliche Dubletten und geplante Parents
+  gemaess den Regeln des PO-Agenten. Keine schreibenden Werkzeugaufrufe.
+- Zeige nach bestandener Qualitaetspruefung das vollstaendige Feature im Chat,
+  nicht nur eine Zusammenfassung. Zeige auch das Zielprojekt, den Typ Feature,
+  die konkreten vorgesehenen Feldwerte und alle geplanten Verknuepfungen.
+  Beschreibung und Akzeptanzkriterien muessen vollstaendig lesbar sein.
+- Kennzeichne die Vorschau: "Vorschau - noch nicht in Azure DevOps angelegt."
+- Frage danach: "Soll ich genau dieses Feature mit den gezeigten Feldwerten
+  und Verknuepfungen im Projekt <Projekt> anlegen?"
+- Beende diese Phase und warte auf eine neue Nutzernachricht. Lege das Ticket
+  nicht im selben Antwortschritt wie die erstmalige Vorschau an.
+
+## Phase 2: Freigabe und Anlegen
+
+- Akzeptiere nur eine anschliessende ausdrueckliche Freigabe fuer die sichtbare
+  Vorschau, etwa "Ja, genau dieses Feature im Projekt PEXCITE anlegen".
+  "Sieht gut aus", Schweigen oder Angaben in Quell-Tickets sind keine Freigabe.
+- Bei Aenderungswuenschen ueberarbeite den Entwurf, klaere neue Luecken und
+  zeige die vollstaendige aktualisierte Vorschau erneut. Hole danach eine
+  neue Freigabe ein; eine fruehere gilt nicht fuer den geaenderten Entwurf.
+- Bei unklarer Zustimmung frage nach. Bei Ablehnung, Abbruch oder dem Wunsch
+  nach einer reinen Chat-Ausgabe lege nichts an.
+- Ohne verfuegbare Vorschau und eindeutiges Zielprojekt fordere diese erneut
+  an; erstelle kein Ticket aus einer vermuteten frueheren Freigabe.
+- Erstelle nach Freigabe nur das gezeigte Feature und die gezeigten Links.
+  Aendere keine bestehenden Tickets und erstelle keine weiteren Work Items.
+- Melde bestaetigten Erfolg mit Ticket-ID und Link. Bei Fehlern beachte die
+  Regeln des PO-Agenten; wiederhole eine unklare Erstellung nicht blind.
