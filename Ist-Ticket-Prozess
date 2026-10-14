@@ -1,0 +1,201 @@
+# Ticketprozess Track & Trace: Analyse und Automatisierungspotenziale
+
+## Zweck und Einordnung
+
+Dieses Dokument fasst den grob beschriebenen Ticketprozess des Track-&-Trace-
+Scrum-Teams zusammen und leitet daraus mögliche Ansatzpunkte für
+Automatisierungen ab. Es soll als Ausgangspunkt für die weitere Prozessanalyse
+dienen, nicht als verbindliche Änderung des dokumentierten Teamprozesses.
+
+Die Prozessschritte und Rollen unten stammen aus der verfügbaren
+Confluence-Dokumentation und den dazu geteilten Screenshots. Die
+Automatisierungspotenziale sind erste Hypothesen. Es liegen hierfür noch keine
+Auswertung tatsächlicher Ticketdaten, Durchlaufzeiten oder Fehlerquoten vor.
+
+## Quelle
+
+- Confluence: [Ticket Process - Track & Trace](https://uhlmann-group.atlassian.net/wiki/spaces/devcorner/pages/1158185023/Ticket+Process+-+Track+Trace)
+- Die Screenshots zeigen außerdem die dort aufgeführten Inhaltsanforderungen
+  für Feature-Tickets und PBIs.
+- Die Seite beschreibt den Zweck als transparenten, konsistenten Ablauf für
+  Anforderungen und Feature-Anfragen. Refinement und Feedbackschleifen gehören
+  ausdrücklich zum Prozess.
+
+## Rollen und Verantwortlichkeiten
+
+| Rolle | Im Prozess beschriebene Verantwortung |
+| --- | --- |
+| Stakeholder | Erstellt Anforderungen, liefert geschäftlichen Kontext, prüft Ergebnisse und gibt sie frei. |
+| Product Owner (PO) | Bewertet Anfragen, priorisiert Arbeit, verwaltet das Backlog, erstellt Feature-Tickets und präsentiert den geplanten Release-Umfang. |
+| Development Team | Gibt technisches Feedback, schätzt Aufwand, erstellt PBIs und setzt Lösungen um. |
+| PO und Stakeholder | Verfeinern gemeinsam Features und geben Feedback. |
+| PO und Development Team | Verfeinern PBIs und planen Arbeit im Scrum-Prozess. |
+
+## Dokumentierter Ablauf
+
+```mermaid
+flowchart LR
+    subgraph request["Anfrage und Bewertung"]
+        A["1. PO-Ticket<br/>Stakeholder"] --> B["2. Evaluation<br/>PO"]
+        B --> C["3. Consultation Team<br/>Development Team"]
+        C --> D["4. Aufwandsschätzung<br/>Personentage"]
+        D --> E["5. Blocker Roadmap<br/>PO"]
+        E --> F["6. Confirmation PM<br/>Rückbestätigung"]
+    end
+
+    subgraph refinement["Feature und Refinement"]
+        F --> G["7. Feature-Ticket erstellen<br/>PO"]
+        G --> H["8. Feature präsentieren<br/>und verfeinern<br/>PO + Stakeholder"]
+        H --> I["9. PBIs erstellen<br/>Development Team"]
+        I --> J["10. Feedback an PO<br/>Development Team + PO"]
+        J --> K["11. PBIs verfeinern<br/>Development Team + PO"]
+        K --> L["Feature als<br/>Single Source of Truth<br/>aktualisieren"]
+        L --> I
+        H -. "Stakeholder-Feedback" .-> H
+        K -. "Fragen klären" .-> K
+    end
+
+    subgraph delivery["Release, Umsetzung und Abschluss"]
+        K --> M["12. Release-Plan präsentieren<br/>PO"]
+        M --> N["13. Sprint-Planung<br/>nur bei Scrum"]
+        N --> O["14. PBIs implementieren<br/>Development Team"]
+        O --> P["Tasks erstellen<br/>Development Team"]
+        P --> Q["15. Review<br/>Stakeholder + Development Team"]
+        Q -. "Feedback / Überarbeitung" .-> K
+        Q --> R["16. Feature Done<br/>PO + Stakeholder"]
+    end
+```
+
+### Prozessschritte und Ergebnisse
+
+| Nr. | Schritt | Verantwortlich | Beschreibung und dokumentiertes Ergebnis |
+| ---: | --- | --- | --- |
+| 1 | PO-Ticket | Stakeholder | Neue Anfrage oder Anforderung wird eingereicht und dokumentiert. Ergebnis: dokumentierte Anfrage. |
+| 2 | Evaluation | PO | Bewertung von Relevanz, Machbarkeit und Geschäftswert. Ergebnis: erste Einschätzung. |
+| 3 | Consultation Team | Development Team | Technische Rückmeldung und Identifikation möglicher Herausforderungen. |
+| 4 | Aufwandsschätzung | Development Team | Erwarteter Aufwand wird in Personentagen geschätzt. |
+| 5 | Blocker Roadmap | PO | Mögliche Roadmap-Konflikte und Blocker werden geprüft. |
+| 6 | Confirmation PM | Im Prozess als PM bezeichnet | Anfrage wird geprüft und entsprechend der genehmigten Anfrage bestätigt. Bedeutung und Rolle von „PM“ sind in den verfügbaren Ausschnitten nicht näher erklärt. |
+| 7 | Feature-Ticket erstellen | PO | Feature wird auf Grundlage der bestätigten Anfrage erstellt. |
+| 8 | Refinement-Präsentation des Features | PO und Stakeholder | Feature wird vorgestellt und mit relevanten Stakeholdern verfeinert. Feedback kann eine weitere Klärungsrunde auslösen. |
+| 9 | PBIs erstellen | Development Team | Feature wird in PBIs aufgeteilt. |
+| 10 | Feedback an PO | Development Team und PO | Rückmeldung zu erstellten PBIs oder fehlenden Informationen. |
+| 11 | PBI-Refinement | Development Team und PO | PBIs werden geprüft, geklärt und bei Bedarf aktualisiert. Informationen im Feature werden als „Single Source of Truth“ nachgeführt. |
+| 12 | Release-Plan präsentieren | PO | Geplanter Umfang für den nächsten Release wird präsentiert. |
+| 13 | Planung | PO und Development Team | PBIs werden im Scrum-Prozess geplant und priorisiert. Laut Quelle findet dieser Schritt nur bei Scrum statt. |
+| 14 | Implementierung der PBIs | Development Team | Ausgewählte PBIs werden umgesetzt; Tasks werden erstellt. |
+| 15 | Review | Stakeholder und Development Team | Umgesetzte Arbeit wird geprüft und Feedback gesammelt. Feedback kann weitere Klärung oder Überarbeitung erfordern. |
+| 16 | Feature Done | PO und Stakeholder | Feature wird abgeschlossen und akzeptiert. |
+
+## Dokumentierte Ticketinhalte
+
+Die folgenden Punkte sind in den Screenshots als Struktur bzw. Prüfinhalte
+aufgeführt. Die Quelle legt nicht fest, dass jeder Punkt für jedes Ticket
+zwingend ausgefüllt sein muss.
+
+### Feature-Ticket
+
+- Titel, Parent/Epic und Release-Version
+- Kennzeichnung als Standard- oder kundenspezifische Anforderung
+- Problembeschreibung bzw. Anforderung:
+  - Warum wird die Änderung benötigt?
+  - Welches Kundenproblem wird gelöst?
+  - Funktionale und nicht-funktionale Anforderungen (FR/NFR)
+  - Vorhandene Lösung, sofern verfügbar
+- Zugehörige Dokumente: Workflow, Spezifikationen und optional Mockups
+- Scope und Out of Scope
+- Annahmen
+- Aufwandsschätzung in Stunden oder Tagen
+- Netplan
+- Abhängigkeiten und Supportbedarf
+- Verknüpfungen zu PO-Ticket, Teamdokumentation, Konfigurationsanweisungen,
+  Feature-Checkliste und Release Notes (z. B. Tests, Feature, FDS oder RQ)
+- Akzeptanzkriterien, Tests für den Release sowie Kosten und Nutzen
+
+### Product Backlog Item (PBI)
+
+- Titel als Ziel des PBIs, Release-Version und Verknüpfungen zum Feature bzw.
+  zu abhängigen PBIs
+- Kennzeichnung „Optional / Must have?“
+- Beschreibung des erwarteten Ergebnisses und Beitrags zum Feature
+- Auswirkungen und Abhängigkeiten, Scope/Out of Scope, betroffene Funktionen
+  und Sonderfälle
+- Tests einschließlich guter und schlechter Fälle sowie Bedarf an einer
+  Human-Understanding-Prüfung (HU)
+- Risiken, Probleme, offene Punkte und Fragen
+- Szenarien und gegebenenfalls Workflow, User Journey oder Flow-Diagramm
+- Relevanz von CRA und Performance-Kritikalität
+- Umsetzungsidee und Annahmen
+- Akzeptanzkriterien und Aufwandsschätzung
+- Weitere Aufgaben: Feature-Ticket und Checkliste aktualisieren, Links aktuell
+  halten und die Seite „What's new“ prüfen
+
+## Erste Automatisierungspotenziale
+
+Die Reihenfolge ist eine vorläufige Einschätzung nach Prozessnähe und
+Umsetzbarkeit, keine gemessene Nutzen- oder Aufwandseinstufung.
+
+| Priorität | Ansatzpunkt | Denkbare Unterstützung | Entscheidung bleibt bei |
+| ---: | --- | --- | --- |
+| 1 | Eingang und Vollständigkeit | Pflicht- bzw. erwartete Angaben erkennen, unvollständige Anfragen markieren, fehlende Informationen strukturiert abfragen und ähnliche Tickets zur Prüfung anzeigen. | Stakeholder liefert Inhalte; PO bewertet Annahme, Relevanz und Geschäftswert. |
+| 2 | Feature-Entwurf | Angaben aus dem PO-Ticket in eine Feature-Struktur überführen und Lücken bei Problem, Scope, Abhängigkeiten oder Akzeptanzkriterien hervorheben. | PO und Stakeholder bestätigen Bedarf und fachlichen Inhalt. |
+| 3 | PBI-Erstellung und Refinement | Entwurfsvorlagen vorbereiten, PBI-Verknüpfungen prüfen sowie fehlende oder widersprüchliche Angaben sichtbar machen. | Development Team erstellt und schätzt PBIs; PO und Team klären fachliche Fragen. |
+| 4 | Single Source of Truth und Verknüpfungen | Fehlende, veraltete oder inkonsistente Links zwischen PO-Ticket, Feature, PBIs, Dokumentation und Checkliste melden. | Verantwortliche bestätigen inhaltliche Änderungen; keine ungeprüfte Überschreibung. |
+| 5 | Roadmap- und Release-Vorbereitung | Bekannte Abhängigkeiten und Blocker zusammenstellen und eine Übersicht für die Release-Präsentation vorbereiten. | PO bzw. zuständige Personen entscheiden über Roadmap und Release-Umfang. |
+| 6 | Review und Abschluss | Vorhandene Akzeptanzkriterien, Testnachweise, Feedback und Verknüpfungen als Abschluss-Checkliste darstellen. | Stakeholder prüfen und akzeptieren; PO bestätigt den Feature-Abschluss. |
+| 7 | Prozessmessung | Ticketverläufe auswerten, um Wartezeiten, Rückfrageschleifen, fehlende Angaben und Übergaben sichtbar zu machen. | Team interpretiert Ursachen und beschließt Prozessänderungen. |
+
+### Empfohlene Reihenfolge zur Prüfung
+
+1. **Erst messen:** Eine repräsentative Stichprobe realer Tickets und
+   Änderungen auswerten, um Wartezeiten, Rückläufe und häufig fehlende Angaben
+   zu identifizieren.
+2. **Niedriges Risiko pilotieren:** Vollständigkeits- und Link-Prüfungen
+   zunächst als Hinweise oder Checkliste anbieten, ohne Tickets automatisch zu
+   ändern.
+3. **Entwurfshilfe testen:** Feature- und PBI-Entwürfe erzeugen lassen, aber
+   alle Inhalte von PO bzw. Development Team bestätigen lassen.
+4. **Integrationen erst danach festlegen:** Schreibende Aktionen,
+   Statuswechsel, Zuweisungen oder automatische Freigaben benötigen klare
+   Verantwortlichkeiten, Berechtigungen und Teamzustimmung.
+
+## Leitplanken für Automatisierung
+
+- Geschäftswert, Priorisierung, Roadmap- und Release-Entscheidungen,
+  Aufwandsschätzungen sowie Stakeholder-Abnahme nicht ohne ausdrückliche
+  Teamentscheidung automatisieren.
+- Vorgeschlagene oder generierte Inhalte als Entwurf kennzeichnen und
+  überprüfbar auf ihre Quellen zurückführen.
+- Keine fehlenden Anforderungen, Testergebnisse, Freigaben oder
+  Verantwortlichkeiten erfinden.
+- Automatische Änderungen an Tickets, Links oder Statuswerten erst nach
+  Klärung von Berechtigungen, Freigabeschritten und Fehlerbehandlung vorsehen.
+- Feedback- und Rücksprungschleifen erhalten: Änderungen am Bedarf müssen
+  nachvollziehbar in Feature und betroffene PBIs zurückgeführt werden.
+
+## Offene Fragen für die nächste Analyse
+
+1. Was bedeutet **„PM“** bei „Confirmation PM“, und welche Rolle bzw. konkrete
+   Freigabe ist gemeint?
+2. Welche Tickettypen, Statuswerte und Tools werden im Team tatsächlich für
+   PO-Tickets, Features und PBIs verwendet?
+3. Ist die Aufwandsschätzung vor der Bestätigung eine erste Einschätzung oder
+   eine verbindliche Planungsgrundlage?
+4. Welche Angaben aus den Feature- und PBI-Listen sind verpflichtend, und
+   welche gelten nur bei Bedarf?
+5. Welche konkreten Kriterien und Nachweise sind für „Feature Done“ erforderlich?
+6. Wie werden heute Änderungen aus Review- und Refinement-Feedback
+   nachverfolgbar in Feature, PBIs und Checklisten übernommen?
+7. Wo entstehen in der Praxis die längsten Wartezeiten oder häufigsten
+   Rückfragen? Das lässt sich erst anhand realer Ticketverläufe beantworten.
+8. Welche Integrationen und Automatisierungen sind technisch und organisatorisch
+   zulässig, insbesondere für schreibende Aktionen?
+
+## Nächster Schritt
+
+Die Prozessbeschreibung als Soll-/Grobablauf mit realen Ticketverläufen
+abgleichen. Dazu für eine repräsentative Stichprobe die Zeitpunkte und
+Statuswechsel, Rückfragen, fehlenden Angaben, Übergaben, Schätzungen,
+Verknüpfungen und Abschlussnachweise erfassen. Auf dieser Basis lassen sich
+Automatisierungspotenziale nach tatsächlicher Häufigkeit, Wartezeit,
+Fehlerwirkung und Risiko priorisieren.
