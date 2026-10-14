@@ -1,0 +1,164 @@
+DEFINITION OF DONE (DoD) - DESCRIPTIONS
+=======================================
+
+
+ARCHITECTURE AND TECHNOLOGY
+---------------------------
+
+[ ] Update existing module flow/flow diagrams. If none exist, create module
+    flow/flow diagrams.
+    Description: Not specified.
+
+[ ] Team understanding/alignment is given.
+    Description: Not specified.
+
+
+CODE COMPLETE
+-------------
+
+[ ] Code is based on agreed design.
+    Description:
+    - For existing features that are expanded, design documentation is
+      sometimes unavailable and creating it can require significant effort.
+    - Short term: this criterion is valid for new features.
+    - Long term: clarify whether all features require a design document and
+      when investing the time is appropriate.
+
+[ ] Push has a meaningful description and the work item ID is added.
+    Description: Not specified.
+
+[ ] Do reasonable functional testing.
+    Description: Not specified.
+
+[ ] Unit tests are performed successfully and cover at least 80%.
+    Description: Not specified.
+
+[ ] Checklist in Pull Request is filled.
+    Description: See the "Checklist PR" section.
+
+
+TEST COMPLETE
+-------------
+
+[ ] PBI is deployed to the PX environment and works as intended.
+    Description: Not specified.
+
+[ ] PBI is at least tested manually on the demosystem. For "Feature complete",
+    automated UI tests have to be done.
+    Description: Not specified.
+
+[ ] All tests are successfully executed and test results are documented in the
+    corresponding PBI.
+    Description: Not specified.
+
+[ ] Polarion test cases are written and linked. Each case should have at least
+    1 good and 2 bad tests.
+    Description: Not specified.
+
+[ ] All potential production-preventing issues must be fixed.
+    Description: Not specified.
+
+
+SECURITY
+--------
+
+[ ] State-of-the-art security technology must be used.
+    Description: Not specified.
+
+[ ] Communication outside of secured boundaries must be encrypted.
+    Description: Not specified.
+
+[ ] Secure boundaries must be respected.
+    Description: Not specified.
+
+[ ] Code must not be injectable (e.g. SQL injection, XSS).
+    Description: Not specified.
+
+[ ] Third-party software which has critical issues must not be released.
+    Description: Not specified.
+
+
+DOCUMENTATION
+-------------
+
+[ ] Requirements are documented in Polarion.
+    Description: A historical review note below says "specified" should be
+    used instead of "documented" for REQ. This wording requires confirmation.
+
+[ ] Technical documentation is created when the PBI is fully finished.
+    Description: Historical review notes below say this criterion is not
+    precise and needs clarification.
+
+[ ] Documentation is reviewed and approved by at least one additional team
+    member.
+    Description: Not specified.
+
+[ ] Documentation is versioned.
+    Description: Not specified.
+
+
+CHECKLIST PR
+------------
+
+[ ] The changelog meets the defined quality criteria.
+    Reference:
+    https://uhlmann-group.atlassian.net/wiki/spaces/W3/pages/801407460/Changelog
+
+[ ] Inline documentation follows the development guidelines.
+    Reference:
+    https://uhlmann-group.atlassian.net/wiki/spaces/W3/pages/801420391/Pexcite+Software+Development+Guidelines
+
+[ ] Personal data is only persisted when it is strictly necessary and the
+    purpose of any collected personal data is clearly documented.
+    Description: Not specified.
+
+[ ] All user inputs are properly validated.
+    Description: Not specified.
+
+[ ] The source code contains no personally identifiable information.
+    Description: Not specified.
+
+
+TO BE CLARIFIED
+---------------
+
+Checklist in Pull Request:
+
+- Changelog fulfills changelog quality criteria:
+  https://uhlmann-group.atlassian.net/wiki/spaces/W3/pages/801407460/Changelog
+
+- Resolvable warnings are not ignored in new development.
+
+- Inline documentation is created according to coding guidelines:
+  https://uhlmann-group.atlassian.net/wiki/spaces/W3/pages/801420391/Pexcite+Software+Development+Guidelines
+
+- Suggestion: include everything on the Pull Request in the list to avoid
+  maintaining it twice; discuss with QA. The source marks this item as checked.
+
+- Coordination, dated 2025-05-05. The source marks this item as checked.
+  - Feedback, dated 2025-05-07. The source marks this item as checked.
+    - The Testing section in the Global DoD needs review and update to make it
+      more actionable and precise. A follow-up was planned but could not be
+      completed during the ongoing release phase.
+    - Documentation:
+      - REQ should be "specified" rather than "documented".
+      - FDS and IFDS are relevant deliverables and should be part of the DoD.
+      - "Technical Documentation" is not precise; clarify whether this means,
+        for example, interface specifications or security-related
+        documentation.
+
+- Decision proposal for the Heads Meeting, dated 2025-05-12. The source marks
+  this item as checked.
+
+- Add explanations behind the criteria or link to explanations. Example:
+  clarify what "80% test coverage" means. The source marks this item as
+  checked.
+
+
+SOURCE STATUS NOTE
+------------------
+
+The checked markers and dated notes above are preserved from the supplied
+source. They record the state shown in that source and do not by themselves
+confirm that the items remain current or that proposed clarifications were
+approved.
