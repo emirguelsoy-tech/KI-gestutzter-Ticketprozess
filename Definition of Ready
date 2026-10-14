@@ -1,0 +1,151 @@
+DEFINITION OF READY - REFINEMENT
+================================
+
+Before a ticket enters Refinement, enough information should be available so
+that the team can understand, discuss, and estimate the requirement.
+
+A ticket does not need to be fully specified to enter Refinement. The goal is
+to provide enough information for the team to understand the request, identify
+risks and dependencies, ask meaningful questions, and create an initial
+estimate.
+
+
+MANDATORY
+---------
+
+[ ] Business value, goal, and problem statement are clear
+    Guidance:
+    - Why is this needed?
+    - What problem does it solve?
+    - Who benefits from it?
+
+[ ] The user/customer need is understood
+    Guidance:
+    - Relevant use cases are described.
+    - Customer restrictions or special requirements are documented.
+
+[ ] Requirements are described
+    Guidance:
+    - Focus is on the desired outcome and behavior rather than a predefined
+      implementation.
+    - The requested functionality is clearly described.
+
+[ ] Scope and user workflow are sufficiently clear
+    Guidance:
+    - Main workflow is understood.
+    - Scope boundaries are identified where possible.
+
+[ ] The current state is known
+    Guidance:
+    - Existing functionality and starting point are described.
+    - Alignment with the requester (UOS) and/or PO has taken place if required.
+
+[ ] Acceptance criteria are available
+    Guidance:
+    - A first draft exists and can be refined later.
+    - It does not need to be 100% complete.
+
+[ ] Known decisions are documented
+    Guidance:
+    - Previous discussions and decisions are captured.
+    - Information is aligned with related Jira tickets if applicable.
+
+[ ] Relevant corner cases and related functionality are identified
+    Guidance:
+    - Important edge cases are known.
+    - Potential impacts on existing functionality have been considered.
+
+[ ] Dependencies and involved parties are identified
+    Guidance:
+    - Technical dependencies are known.
+    - Relevant teams, departments, or stakeholders are identified.
+
+[ ] Ownership is clear
+    Guidance:
+    - A responsible person and/or contact person is defined.
+
+[ ] Relevant documentation is linked
+    Guidance:
+    - Existing documentation, Jira tickets, diagrams, or other references are
+      available.
+
+[ ] Ticket structure is correct
+    Guidance:
+    - The PBI is linked to the appropriate Epic/Parent item.
+    - Alternatively, the PO has been informed for assignment.
+
+
+OPTIONAL (IF KNOWN)
+-------------------
+
+[ ] Jira ticket that contains customer, production, setup, netplan, or
+    stakeholder information
+[ ] Technical dependencies have been identified and documented
+[ ] Target version or release is known
+[ ] Required machine tests or operational activities have been identified and
+    scheduled
+
+
+DEFINITION OF READY - DEVELOPMENT
+=================================
+
+After Refinement, the ticket should provide enough clarity for development to
+start without unresolved questions that could block implementation.
+
+
+MANDATORY
+---------
+
+[ ] Team alignment on functionality and scope has been achieved
+    Guidance:
+    - The team shares the same understanding of what should be delivered.
+    - Scope boundaries are understood.
+
+[ ] Acceptance criteria are clear and testable
+    Guidance:
+    - Success can be verified.
+    - Acceptance criteria provide sufficient guidance for implementation and
+      testing.
+
+[ ] Affected components and modules are identified
+    Guidance:
+    - Relevant systems, modules, or layers are known (e.g., FE, BE, database,
+      interfaces).
+    - The information is detailed enough for the team to start implementation.
+
+[ ] An implementation approach is understood
+    Guidance:
+    - The team has a common understanding of how the work can be implemented.
+    - Detailed design is not necessarily required.
+
+[ ] Relevant system impacts are understood
+    Guidance:
+    - Potential impacts on existing functionality or systems have been
+      identified.
+    - Important dependencies and affected areas are known.
+
+[ ] A testing strategy is defined
+    Guidance:
+    - Required testing and validation activities are identified.
+    - Special testing needs are known.
+
+[ ] Shared understanding of complexity and effort exists
+    Guidance:
+    - The team has aligned on implementation effort and complexity.
+
+[ ] Required resources are defined
+    Guidance:
+    - Needed environments, machines, operations support, or other resources are
+      identified and available.
+
+[ ] Target version is known
+    Guidance:
+    - The intended release or delivery version is identified.
+
+
+OPTIONAL
+--------
+
+[ ] Tasks for larger PBIs have been identified or collaboratively planned.
+    Detailed task breakdown can also be created afterwards by a smaller group
+    if more efficient.
