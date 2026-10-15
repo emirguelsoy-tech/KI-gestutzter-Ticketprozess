@@ -1,0 +1,150 @@
+# Feature Specification: Read-Only Azure DevOps Refinement Readiness
+
+**Feature Branch**: Not created; feature location is independent of branches.
+
+**Created**: 2026-10-15
+
+**Status**: Draft - validated and ready for planning
+
+**Input**: User description: "Create a feature that checks whether an Azure DevOps feature ticket contains all required information before it enters refinement. Show missing fields clearly. Do not create or modify Azure DevOps work items automatically."
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - Assess a Feature Before Refinement (Priority: P1)
+
+As a product owner or refinement participant, I want to check a Feature ticket before refinement so that I can tell whether its required information is documented.
+
+**Why this priority**: A dependable completeness assessment is the core business outcome.
+
+**Independent Test**: Check complete and incomplete Feature tickets against Team DoR v1 and verify their outcomes while confirming that no work items are created or changed.
+
+**Acceptance Scenarios**:
+
+1. **Given** a readable Feature ticket satisfying every mandatory requirement, **When** the user requests a check, **Then** the result is "Ready for refinement" and identifies the ticket, checked revision, check time, and policy.
+2. **Given** a readable Feature ticket missing required information, **When** a check finishes, **Then** the result is "Not ready for refinement" and lists every missing component.
+3. **Given** any requested check, including a failed check or retry, **When** it runs, **Then** no Azure DevOps work items are created and no existing work items are modified, including the selected ticket and related items.
+4. **Given** a user has read permission but no write permission, **When** they check a readable Feature ticket, **Then** the assessment works without requiring write permission.
+
+---
+
+### User Story 2 - Understand Missing Fields and Recheck (Priority: P2)
+
+As a ticket author, I want each missing field or section clearly identified so that I can supply the information myself and request another assessment.
+
+**Why this priority**: A completeness decision is actionable only when the author can identify and resolve every omission.
+
+**Independent Test**: Omit known required components, verify the reported names and explanations, manually correct the ticket outside the checker, and request a fresh check.
+
+**Acceptance Scenarios**:
+
+1. **Given** several required components are absent, **When** the result is shown, **Then** each appears separately with its business-facing field or section name, reason, and expected information; none are hidden by the first failure.
+2. **Given** required text is absent, empty, whitespace-only, formatting-only, or placeholder-only, **When** it is checked, **Then** it is reported as missing; empty required selections or lists also fail.
+3. **Given** all mandatory information is present but optional information is absent, **When** the ticket is checked, **Then** it is "Ready for refinement" and optional or satisfied items do not appear as missing.
+4. **Given** a draft acceptance criterion exists, **When** it is assessed, **Then** DOR-06 passes without requiring final acceptance criteria.
+5. **Given** the ticket has an appropriate Epic or parent link, or documents that the PO was informed for assignment, **When** it is checked, **Then** DOR-12 passes and identifies the satisfied alternative; neither alternative means DOR-12 fails.
+6. **Given** an author manually fills all omissions in Azure DevOps, **When** they request a fresh check, **Then** newly read contents and their revision determine the new result, not the earlier assessment.
+
+---
+
+### User Story 3 - Recognize an Unsuccessful Assessment (Priority: P2)
+
+As a refinement participant, I want failed checks distinguished from incomplete tickets so that unreadable information never produces a misleading decision.
+
+**Why this priority**: Missing access or data is not evidence of readiness or incompleteness.
+
+**Independent Test**: Check inaccessible tickets, unsupported work item types, unavailable data, and invalid policy mappings; verify "Unable to assess" and an appropriate next action without work item creation or modification.
+
+**Acceptance Scenarios**:
+
+1. **Given** a ticket does not exist or the user cannot read it, **When** a check is requested, **Then** the result is "Unable to assess" with a non-sensitive explanation and next action, without exposing inaccessible contents.
+2. **Given** a selected work item is not a Feature, **When** it is checked, **Then** the result is "Unable to assess" and asks the user to select a Feature ticket.
+3. **Given** the ticket service or required data is unavailable, **When** a check runs, **Then** it returns "Unable to assess" and offers a retry rather than presenting unreadable fields as missing.
+4. **Given** the policy or a required field/section mapping is unavailable or invalid, **When** a check runs, **Then** it returns "Unable to assess" and identifies the policy problem for manual resolution.
+
+### Edge Cases
+
+- Every mandatory component is missing: report all omissions separately.
+- One component of a multi-component requirement is present: other missing components still fail.
+- Required text contains only line breaks, non-breaking spaces, or empty formatting: treat it as missing.
+- The entire visible text, ignoring case, surrounding whitespace, and terminal punctuation, is "TBD", "TODO", or "TBC": treat it as missing.
+- A conditional requirement does not apply: accept a documented explanation where the policy permits it; an empty value or bare "N/A" is not an explanation.
+- Technical dependencies appear in mandatory and optional guidance: evaluate mandatory known dependencies once; optional guidance cannot waive them or create duplicate omissions.
+- A reference to Jira or other documentation exists: assess the documented reference, not external content or availability.
+- A ticket changes during reading and a consistent revision cannot be established: return "Unable to assess" and offer a fresh check.
+- A ticket changes after assessment: the result remains tied to its checked revision and time; a new check is required.
+- A project uses different field names: require an agreed mapping; unavailable mappings prevent assessment, while readable but empty mapped fields are omissions.
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: The system MUST let an authorized user identify one Azure DevOps Feature ticket by identifier or link and explicitly request a readiness check.
+- **FR-002**: The system MUST assess freshly read ticket contents from a consistent identifiable revision against the explicit Team DoR v1 policy below.
+- **FR-003**: The system MUST check every mandatory policy item and each component independently, applying documented alternatives and conditional exceptions. Optional information MUST NOT block readiness.
+- **FR-004**: The system MUST return exactly one outcome: "Ready for refinement" if all mandatory components pass, "Not ready for refinement" if at least one is missing, or "Unable to assess" if a dependable assessment cannot be completed.
+- **FR-005**: The system MUST list every missing component separately with its business-facing field or section name, failure reason, and expected information. Satisfied and optional items MUST NOT be listed as missing.
+- **FR-006**: The system MUST treat absent, empty, whitespace-only, formatting-only, and placeholder-only required text, and empty required selections or lists, as missing according to the edge-case rules above.
+- **FR-007**: The system MUST NOT create any Azure DevOps work item or modify any existing work item during any check, failed check, or retry. This includes the selected Feature and related work items, their fields, states, comments, links, attachments, and history. It MUST NOT offer work-item creation, repair, or writing actions in this feature.
+- **FR-008**: Every completed readiness assessment MUST show ticket identity, checked revision, check time, and applied policy identity. Failed checks MUST identify the requested ticket where known without claiming a revision was assessed successfully.
+- **FR-009**: The system MUST allow a user-requested fresh check after manual edits and MUST NOT reuse the earlier decision as the current result.
+- **FR-010**: The system MUST distinguish nonexistent or unreadable tickets, unsupported work item types, service or data failures, inconsistent revisions, and invalid policies or mappings from missing information. These failures MUST produce "Unable to assess" with a non-sensitive reason and appropriate next action.
+- **FR-011**: The system MUST respect existing read permissions, MUST NOT require write permissions, and MUST NOT disclose inaccessible ticket contents.
+- **FR-012**: Readiness MUST be informational input to a manual refinement decision. The checker MUST NOT transition ticket state, enforce entry into refinement, or claim workflow approval or blocking. A ready result establishes documented completeness, not business correctness, clarity, shared understanding, or human approval.
+
+### Required-Information Policy: Team DoR v1
+
+This policy reuses the existing Team DoR v1 recorded in [the preceding feature specification](../001-check-refinement-readiness/spec.md). It is an explicit carried-forward assumption, not a new policy supplied in this request. Each row describes business information that existing fields or named sections may provide; no new Azure DevOps fields are required. Results identify the particular missing component rather than only its category.
+
+Presence establishes documentation, not substantive quality. Conditional requirements permit explicit explanations as specified below; human reviewers remain responsible for evaluating clarity and correctness.
+
+| ID | Mandatory information | Completion evidence |
+| --- | --- | --- |
+| DOR-01 | Business value, goal, and problem statement | Documented reason, intended goal, problem being solved, and intended beneficiaries. |
+| DOR-02 | User or customer need | At least one relevant use case, plus customer restrictions or special requirements, or an explicit statement that none are known. |
+| DOR-03 | Requirements | Requested functionality, desired outcome, and expected behavior are documented; a proposed implementation alone does not replace these components. |
+| DOR-04 | Scope and user workflow | Main workflow and known scope boundaries are documented; an explicit statement that boundaries are not yet known is sufficient where they cannot yet be specified. |
+| DOR-05 | Current state | Existing functionality and starting point are described, including an explicit new-functionality statement where appropriate; requester (UOS) and/or PO alignment is documented if required, or an explanation states why it is not required. |
+| DOR-06 | Acceptance criteria | At least one draft acceptance criterion; final or fully complete criteria are not required. |
+| DOR-07 | Known decisions | Prior discussions and decisions, or an explicit statement that none exist; applicable related Jira references and alignment notes, or an explanation of why Jira alignment does not apply. |
+| DOR-08 | Corner cases and related functionality | Relevant known edge cases and potential impacts on existing functionality; each component may explicitly state that none have been identified. |
+| DOR-09 | Dependencies and involved parties | Known technical dependencies and relevant teams, departments, or stakeholders; each component may explicitly state that none are known. |
+| DOR-10 | Ownership | At least one responsible person or contact person; either role suffices. |
+| DOR-11 | Relevant documentation | References to existing relevant documentation, Jira tickets, diagrams, or supporting material; an explicit explanation suffices if no relevant material exists. Only the documented reference is checked. |
+| DOR-12 | Correct ticket structure | An appropriate Epic or parent link, or documented evidence that the PO was informed for assignment; record which alternative passes without requiring both. |
+
+Optional information MUST NOT block readiness or be reported as missing:
+
+13. A Jira ticket containing customer, production, setup, netplan, or stakeholder information.
+14. Additional technical-dependency detail; known dependencies under DOR-09 remain mandatory and are assessed once.
+15. Target version or release.
+16. Required machine tests or operational activities and their scheduling.
+
+Policy acceptance examples must omit each mandatory row and each component in turn, exercise every permitted conditional explanation and both DOR-12 alternatives, and omit all optional information.
+
+### Key Entities *(include if feature involves data)*
+
+- **Feature Ticket**: Selected Azure DevOps work item, identified by project, ticket identifier, type, readable fields or sections, and revision.
+- **Required-Information Policy**: Versioned mandatory and optional requirements, completion rules, alternatives, and agreed project field or section mappings.
+- **Readiness Assessment**: Outcome for a ticket revision and policy, check time, all omissions, or the reason assessment was unsuccessful.
+- **Missing Information Item**: Failed required component, its business-facing field or section name, reason, and expected information.
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: In acceptance examples covering all twelve mandatory rows, their component omissions, conditional exceptions, and four optional omissions, 100% of outcomes match the policy and 100% of missing components are reported, with zero satisfied or optional components falsely reported.
+- **SC-002**: Across all acceptance checks, including failures and retries, zero Azure DevOps work items are created and zero existing work items are changed by the checker, including selected and related items and their fields, states, comments, links, attachments, and history.
+- **SC-003**: At least four of five representative product owners or ticket authors can identify every reported omission and explain what to add within 60 seconds of viewing a result without assistance.
+- **SC-004**: In 100% of tested access, service, unsupported-type, inconsistent-revision, and policy-mapping failures, the result is "Unable to assess", not a completeness decision.
+- **SC-005**: In every acceptance example where the author manually supplies all missing information, the next successful check reports "Ready for refinement" for the newly read revision.
+
+## Assumptions
+
+- Users are authorized product owners, ticket authors, or refinement participants with existing project access.
+- Initial scope is an explicit, on-demand check of one Feature ticket; bulk checks, background monitoring, other work item types, and workflow enforcement are excluded.
+- Team DoR v1 from the existing specification is the initial required-information policy. Placeholder handling and explicit conditional explanations are documented completion conventions, not additional business-quality demands.
+- The team must supply an agreed mapping to existing project fields or sections before acceptance testing. Policy editing, discovery, and project administration are out of scope.
+- The source DoR's parent-link guidance mentions a PBI; this feature applies the documented parent-link or PO-notification alternatives to the selected Feature without assessing PBIs.
+- Assessment depends on readable ticket data and a consistent current revision. Their unavailability prevents assessment rather than bypassing requirements.
+- Users manually correct tickets in Azure DevOps outside the checker. No replacement content or work-item write action is generated or performed by this feature.
+- The project constitution contains template placeholders only; no ratified project-specific principles can be inferred from it.
